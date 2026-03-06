@@ -81,11 +81,6 @@ public/                    # Arquivos estáticos
 .husky/                    # Hooks do Git
 ```
 
-Arquivos de destaque:
-- [src/views/Home.vue](file:///d:/Projects/bin2dec/src/views/Home.vue)
-- [package.json](file:///d:/Projects/bin2dec/package.json)
-- [tailwind.config.js](file:///d:/Projects/bin2dec/tailwind.config.js)
-
 ---
 
 # ⚙️ Funcionalidades Automatizadas
