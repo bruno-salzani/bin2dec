@@ -77,17 +77,6 @@ npm run lint
 
 ---
 
-## 🔮 Plano de Modernização (Roadmap)
-
-Como Staff Engineer, identifico as seguintes dívidas técnicas e plano de mitigação:
-
-1.  **Migração Vue 2 -> Vue 3**: O Vue 2 atingiu o fim da vida útil.
-    - *Estratégia*: Utilizar `@vue/compat` para migração gradual.
-2.  **Build Tooling**: Migrar de Webpack (Vue CLI) para **Vite** para melhorar o tempo de startup e HMR (Hot Module Replacement).
-3.  **Tipagem**: Adotar **TypeScript** para garantir contratos robustos entre componentes e utilitários.
-
----
-
 ## 🤝 Autor
 
 Refatorado com mindset de Engenharia de Software de Alto Desempenho.
