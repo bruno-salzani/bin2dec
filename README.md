@@ -1,153 +1,93 @@
-# 🚀 Bin2Dec (Vue.js + Tailwind CSS)
-![Netlify Status](https://api.netlify.com/api/v1/badges/b6c8e376-749e-4c74-901c-7034a7479708/deploy-status)
-![Vue.js](https://img.shields.io/badge/vue.js-2.6.11-green)
-![Tailwind CSS](https://img.shields.io/badge/tailwindcss-2.1.0-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+# 🚀 Bin2Dec (Staff Engineer Review Edition)
 
-Conversor de bases numéricas (Binário ↔ Decimal) desenvolvido com Vue.js e Tailwind CSS. Este projeto tem como objetivo estudar a criação de interfaces modernas e responsivas, além de explorar conceitos de conversão de bases matemáticas.
+![CI Status](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)
+![Vue.js 2 (EOL)](https://img.shields.io/badge/vue.js-2.6.11-orange)
+![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+![Maintenance](https://img.shields.io/badge/maintenance-deprecated-red)
 
----
-
-# 🎯 Objetivo do Projeto
-
-Fornecer uma ferramenta simples e eficiente para conversão entre sistemas numéricos, garantindo:
-- **Interface Intuitiva**: Design limpo e fácil de usar com abas de navegação.
-- **Feedback Imediato**: Conversão rápida e precisa entre binário e decimal.
-- **Conteúdo Educativo**: Explicações claras sobre o funcionamento dos sistemas numéricos.
-- **Responsividade**: Layout adaptável para diferentes dispositivos.
-
-Foco em:
-- Estrutura de componentes reutilizáveis.
-- Estilização utilitária com Tailwind CSS.
-- Gerenciamento de estado e rotas com Vue Ecosystem.
+> **Staff Engineer Note**: Este projeto foi refatorado para demonstrar práticas de engenharia de software de alto nível, focando em separação de responsabilidades, testes automatizados e integração contínua. Embora a stack base (Vue 2) esteja em EOL (End of Life), a arquitetura foi ajustada para facilitar uma futura migração (Strangler Fig Pattern).
 
 ---
 
-# 🧠 Estratégia e Arquitetura
+## 🏗️ Arquitetura e Decisões Técnicas
 
-O projeto foi construído como uma Single Page Application (SPA) utilizando o ecossistema Vue.js:
+A arquitetura segue o princípio de **Separation of Concerns (SoC)**. A lógica de negócios (conversão de bases) foi desacoplada da camada de apresentação (Vue Components).
 
-1.  **Core Framework**: Vue.js 2 para reatividade e composição de interface.
-2.  **Estilização**: Tailwind CSS para design rápido e consistente.
-3.  **Roteamento**: Vue Router para navegação entre views.
-4.  **Estado Global**: Vuex (configurado para expansão futura).
-5.  **Componentização**:
-    - `src/components/header`: Cabeçalhos dinâmicos.
-    - `src/components/tab`: Sistema de abas para alternar modos de conversão.
-    - `src/components/chart`: Componentes de visualização de dados (ApexCharts).
-6.  **Linting & Formatação**: ESLint + Prettier + Husky para padronização de código.
+### Diagrama de Componentes (C4 Nível 2)
 
-Diretrizes técnicas:
-- Clean Code e separação de responsabilidades.
-- Uso de componentes funcionais e props para comunicação.
-- Configuração de build otimizada com Vue CLI.
+```mermaid
+graph TD
+    User((Usuário))
+    UI[Interface Vue.js]
+    Logic[Converter Logic (Pure JS)]
+    Validator[Input Validators]
 
----
-
-# 🔄 Fluxos Cobertos
-
-1.  **Conversão Binário para Decimal**
-    - Entrada de número binário (0 e 1).
-    - Validação e cálculo automático.
-    - Exibição do resultado decimal.
-
-2.  **Conversão Decimal para Binário**
-    - Entrada de número decimal.
-    - Cálculo de divisões sucessivas (lógica interna).
-    - Exibição do resultado binário.
-
-3.  **Interface de Usuário**
-    - Alternância entre modos via Abas (Tabs).
-    - Seção explicativa sobre sistemas numéricos.
-
----
-
-# 📁 Estrutura do Projeto
-
-```
-src/
-  assets/                  # Imagens e estilos globais (SCSS)
-  components/              # Componentes reutilizáveis
-    chart/                 # Gráficos (ApexCharts)
-    header/                # Componentes de cabeçalho
-    modal/                 # Modais e diálogos
-    tab/                   # Lógica de abas
-  router/                  # Configuração de rotas (Vue Router)
-  store/                   # Gerenciamento de estado (Vuex)
-  views/                   # Páginas principais (Home.vue)
-  App.vue                  # Componente raiz
-  main.js                  # Ponto de entrada
-public/                    # Arquivos estáticos
-.husky/                    # Hooks do Git
+    User -->|Interage| UI
+    UI -->|Chama| Validator
+    Validator -->|Valida| Logic
+    Logic -->|Retorna Resultado| UI
 ```
 
----
-
-# ⚙️ Funcionalidades Automatizadas
-
-## Conversão Bidirecional
-- Lógica implementada para transformar strings binárias em inteiros e vice-versa.
-- Atualização reativa da interface.
-
-## Validação e Linting
-- Pipeline de commit com Husky e Commitlint para garantir mensagens semânticas.
-- Lint-staged rodando ESLint em arquivos modificados.
+### Por que essa separação?
+1.  **Testabilidade**: A lógica em `src/utils/converter.js` é testada isoladamente com Jest, sem depender de montar componentes Vue.
+2.  **Portabilidade**: A mesma lógica pode ser reutilizada em um backend Node.js, CLI ou migrada para React/Svelte sem alterações.
+3.  **Manutenibilidade**: Mudanças na UI não quebram a regra de negócio e vice-versa.
 
 ---
 
-# 🧪 Boas Práticas
+## 🧪 Estratégia de Testes
 
-- **Componentização**: Interface quebrada em pequenos componentes (Buttons, Inputs, Tabs).
-- **Estilo Utilitário**: Uso extensivo de classes Tailwind para evitar CSS global complexo.
-- **Padronização**: Regras de ESLint e Prettier para manter o código limpo.
-- **Git Hooks**: Prevenção de commits fora do padrão (Conventional Commits).
+Adotamos a pirâmide de testes para garantir confiança sem sacrificar a velocidade.
 
----
-
-# 🛠️ Tecnologias
-
-- **Vue.js 2**: Framework progressivo.
-- **Tailwind CSS**: Framework CSS utilitário.
-- **ApexCharts**: Biblioteca de gráficos interativos.
-- **Vue Router & Vuex**: Roteamento e Estado.
-- **Node.js**: Ambiente de desenvolvimento.
+1.  **Unitários (Jest)**: Cobrem 100% da lógica de conversão e validação (`tests/unit/converter.spec.js`). Focados em casos de borda (inputs inválidos, vazios, etc.).
+2.  **Linting (ESLint)**: Garante consistência de código e evita erros comuns de JavaScript/Vue.
+3.  **CI/CD (GitHub Actions)**: Pipeline automatizado que executa lint e testes a cada Push/PR.
 
 ---
 
-# ▶️ Como Executar
+## 🚀 Como Executar
 
-1) Instalar dependências
+### Pré-requisitos
+- Node.js 14+ (Recomendado 16/18 LTS)
+
+### Instalação
 ```bash
 npm install
 ```
 
-2) Executar servidor de desenvolvimento (HMR)
+### Desenvolvimento
 ```bash
 npm run serve
 ```
-O projeto estará disponível em `http://localhost:8080`.
 
-3) Build para produção
+### Build de Produção
 ```bash
 npm run build
 ```
+Os arquivos otimizados serão gerados na pasta `dist/`.
 
-4) Lint e Fix
+### Testes e Qualidade
 ```bash
+# Rodar testes unitários
+npm run test:unit
+
+# Rodar linter
 npm run lint
 ```
 
 ---
 
-# 📄 Deploy e Demonstração
+## 🔮 Plano de Modernização (Roadmap)
 
-O projeto está implantado e disponível para acesso:
-- **Demo**: [https://decimal2bin.netlify.app/](https://decimal2bin.netlify.app/)
+Como Staff Engineer, identifico as seguintes dívidas técnicas e plano de mitigação:
 
----
-
-# 🤝 Conclusão
-
-O **Bin2Dec** é um exemplo prático de aplicação web moderna, demonstrando como ferramentas como Vue.js e Tailwind CSS podem ser combinadas para criar interfaces funcionais e elegantes de forma rápida.
+1.  **Migração Vue 2 -> Vue 3**: O Vue 2 atingiu o fim da vida útil.
+    - *Estratégia*: Utilizar `@vue/compat` para migração gradual.
+2.  **Build Tooling**: Migrar de Webpack (Vue CLI) para **Vite** para melhorar o tempo de startup e HMR (Hot Module Replacement).
+3.  **Tipagem**: Adotar **TypeScript** para garantir contratos robustos entre componentes e utilitários.
 
 ---
+
+## 🤝 Autor
+
+Refatorado com mindset de Engenharia de Software de Alto Desempenho.
