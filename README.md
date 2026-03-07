@@ -1,6 +1,5 @@
 # 🚀 Bin2Dec (Staff Engineer Review Edition)
 
-![CI Status](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)
 ![Vue.js 2 (EOL)](https://img.shields.io/badge/vue.js-2.6.11-orange)
 ![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 ![Maintenance](https://img.shields.io/badge/maintenance-deprecated-red)
