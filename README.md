@@ -12,21 +12,6 @@
 
 A arquitetura segue o princípio de **Separation of Concerns (SoC)**. A lógica de negócios (conversão de bases) foi desacoplada da camada de apresentação (Vue Components).
 
-### Diagrama de Componentes (C4 Nível 2)
-
-```mermaid
-graph TD
-    User((Usuário))
-    UI[Interface Vue.js]
-    Logic[Converter Logic (Pure JS)]
-    Validator[Input Validators]
-
-    User -->|Interage| UI
-    UI -->|Chama| Validator
-    Validator -->|Valida| Logic
-    Logic -->|Retorna Resultado| UI
-```
-
 ### Por que essa separação?
 1.  **Testabilidade**: A lógica em `src/utils/converter.js` é testada isoladamente com Jest, sem depender de montar componentes Vue.
 2.  **Portabilidade**: A mesma lógica pode ser reutilizada em um backend Node.js, CLI ou migrada para React/Svelte sem alterações.
